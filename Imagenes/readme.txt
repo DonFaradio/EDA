@@ -1,1 +1,1 @@
-Directorio de impágenes para la Wiki.
+Directorio de imágenes para la Wiki.
