@@ -2,7 +2,7 @@
 
 ## ¿Qué es EDA?
 
-EDA es un **sistema integral de robótica educativa**, basado en software y hardware libre.
+EDA es un **sistema integral de robótica educativa**, basado en [software y hardware libre](https://github.com/DonFaradio/EDA/blob/master/LICENSE).
 
 Está compuesto por un **universo de productos y contenidos pedagógicos** enfocados en la **enseñanza de diversas disciplinas tecnológicas** como robótica, domótica, automatización, control y programación; aplicable a **todos los niveles de enseñanza**.
 
