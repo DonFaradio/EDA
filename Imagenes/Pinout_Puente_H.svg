@@ -8,14 +8,14 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   viewBox="0.0 0.0 1122.5196850393702 793.7007874015748"
-   fill="none"
-   stroke="none"
-   stroke-linecap="square"
+   viewBox="0 0 1120 499.99999"
    stroke-miterlimit="10"
    id="svg151"
    sodipodi:docname="Pinout_Puente_H.svg"
-   inkscape:version="0.92.1 r15371">
+   inkscape:version="0.92.1 r15371"
+   width="1120"
+   height="500"
+   style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10">
   <metadata
      id="metadata157">
     <rdf:RDF>
@@ -43,29 +43,30 @@
      inkscape:window-height="731"
      id="namedview153"
      showgrid="false"
-     inkscape:zoom="0.64578806"
-     inkscape:cx="574.38273"
-     inkscape:cy="396.8504"
+     inkscape:zoom="0.68214286"
+     inkscape:cx="560"
+     inkscape:cy="241.71166"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g149" />
+     inkscape:current-layer="svg151" />
   <clipPath
      id="p_1.0">
     <path
-       d="m0 0l1122.5197 0l0 793.7008l-1122.5197 0l0 -793.7008z"
-       clip-rule="nonzero"
-       id="path2" />
+       d="M 0,0 H 1122.5197 V 793.7008 H 0 Z"
+       id="path2"
+       inkscape:connector-curvature="0"
+       style="clip-rule:nonzero" />
   </clipPath>
   <g
      clip-path="url(#p_1.0)"
-     id="g149">
+     id="g149"
+     transform="translate(-1.4659687,-146.30813)">
     <path
-       fill="#000000"
-       fill-opacity="0.0"
-       d="m0 0l1122.5197 0l0 793.7008l-1122.5197 0z"
-       fill-rule="evenodd"
-       id="path5" />
+       d="M 0,0 H 1122.5197 V 793.7008 H 0 Z"
+       id="path5"
+       inkscape:connector-curvature="0"
+       style="fill:#000000;fill-opacity:0;fill-rule:evenodd" />
     <path
        d="M 14.016122,209.21967 H 1108.9975 V 584.48034 H 14.016122 Z"
        id="path7"
