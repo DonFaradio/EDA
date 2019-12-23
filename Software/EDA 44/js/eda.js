@@ -43,6 +43,11 @@
 		E3:2,
 		E4:3
 	};
+
+	var EDAinUltrasonic ={
+		E1_E2:5,
+		E3_E4:6
+	};
 	var axis = {
 		'X-Axis':1,
 		'Y-Axis':2,
@@ -86,9 +91,9 @@
 		esdigital=0;
 		getPackage(nextID,deviceId,EDAin[pin]);
     };
-	ext.getUltrasonicArduino = function(nextID,trig,echo){
+	ext.getUltrasonicArduino = function(nextID,pin){
 		var deviceId = 36;
-		getPackage(nextID,deviceId,trig,echo);
+		getPackage(nextID,deviceId,EDAinUltrasonic[pin],2+EDAinUltrasonic[pin]);
 	}
 	ext.getTimer = function(nextID){
 		if(startTimer==0){
