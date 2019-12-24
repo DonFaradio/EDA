@@ -2,7 +2,7 @@
 	"description": "Control de la placa EDA 44",
 	"author": "Don Faradio (donfaradio@gmail.com)",
 	"homepage": "https://github.com/DonFaradio/EDA/wiki",
-	"version": "1.3",
+	"version": "1.4",
 	"sort": 1,
 	"extensionPort": 0,
 	"firmware": "1.1",
