@@ -69,8 +69,16 @@
 				"work": "dht.readHumidity()",
 				"loop": ""
 			}
-		]
+		],
+		
+		["w","LCD mostrar texto %s","LCDshow","¡Hola Mundo!",
+		{"setup":"lcd.begin(16, 2);\n","inc":"#include <LiquidCrystal.h>\n /*\n ------------------------------------------------------------\n |			¡Atención!								|\n | 	Al utilizar el LCD Shield con la interface EDA 44	|\n | 	no podrás utilizar E1 y S1 para otros dispositivos.	|\n------------------------------------------------------------\n */\n ","def":"LiquidCrystal lcd(8, 9, 4, 5, 6, 7);\n","work":"lcd.print({0});\n","loop":""}],
 
+		["w","LCD limpiar","LCDclear",
+		{"setup":"lcd.begin(16, 2);\n","inc":"#include <LiquidCrystal.h>\n /*\n ------------------------------------------------------------\n |			¡Atención!								|\n | 	Al utilizar el LCD Shield con la interface EDA 44	|\n | 	no podrás utilizar E1 y S1 para otros dispositivos.	|\n------------------------------------------------------------\n */\n ","def":"LiquidCrystal lcd(8, 9, 4, 5, 6, 7);\n","work":"lcd.clear();\n","loop":""}],
+
+		["w","LCD posición del cursor: fila %d.lcdRow  columna %d.lcdCol ","LCDsetcursor",0,0,
+		{"setup":"lcd.begin(16, 2);\n","inc":"#include <LiquidCrystal.h>\n /*\n ------------------------------------------------------------\n |			¡Atención!								|\n | 	Al utilizar el LCD Shield con la interface EDA 44	|\n | 	no podrás utilizar E1 y S1 para otros dispositivos.	|\n------------------------------------------------------------\n */\n ","def":"LiquidCrystal lcd(8, 9, 4, 5, 6, 7);\n","work":"lcd.setCursor({1},{0});\n","loop":""}]
 	],
 	"menus": {
 		"servovalue":["0","45","90","135","180"],
@@ -79,7 +87,9 @@
 		"digital":["HIGH","LOW"],
 		"EDAin":["E1","E2","E3","E4"],
 		"EDAout":["S1","S2","S3","S4"],
-		"EDAinUltrasonic":["E1_E2","E3_E4"]
+		"EDAinUltrasonic":["E1_E2","E3_E4"],
+		"lcdRow":["0","1"],
+		"lcdCol":["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]
 	},
 	"values":{
 		"run":2,
