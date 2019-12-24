@@ -2,7 +2,7 @@
 	"description": "Control de la placa EDA 44",
 	"author": "Don Faradio (donfaradio@gmail.com)",
 	"homepage": "https://github.com/DonFaradio/EDA/wiki",
-	"version": "1.2",
+	"version": "1.3",
 	"sort": 1,
 	"extensionPort": 0,
 	"firmware": "1.1",
@@ -30,7 +30,47 @@
 		
 		["R", "Leer sensor ultrasónico entrada %d.EDAinUltrasonic","getUltrasonicArduino","E1_E2",
 		{"encode":"{d0}","setup":"","inc":"","def":"--separator--float getDistance(int trig,int echo){\npinMode(trig,OUTPUT);\ndigitalWrite(trig,LOW);\ndelayMicroseconds(2);\ndigitalWrite(trig,HIGH);\ndelayMicroseconds(10);\ndigitalWrite(trig,LOW);\npinMode(echo, INPUT);\nreturn pulseIn(echo,HIGH,30000)/58.0;\n}\n","work":"getDistance({0},2+{0})","loop":""}],
-				
+
+		[ //DHT sensor library
+			"w",
+			"Inicializar DHT 11 en entrada %d.EDAin ",
+			"DHT sensor begin",
+			"E1",
+			{
+				"setup": "",
+				"inc": "#include \"DHT.h\"\n",
+				"def": "DHT dht(A0+{0},11);\n",
+				"work": "",
+				"loop": ""
+			}
+		],
+		[
+			"r",
+			"DHT Temperatura",
+			"DHT sensor get Temperature",
+			"1",
+			{
+				"setup": "",
+				"inc": "",
+				"def": "",
+				"work": "dht.readTemperature()",
+				"loop": ""
+			}
+		],
+		[
+			"r",
+			"DHT Humedad",
+			"DHT sensor get Humidity",
+			"1",
+			{
+				"setup": "",
+				"inc": "",
+				"def": "",
+				"work": "dht.readHumidity()",
+				"loop": ""
+			}
+		]
+
 	],
 	"menus": {
 		"servovalue":["0","45","90","135","180"],
@@ -51,7 +91,7 @@
 		"HIGH":1,"LOW":0,
 		"E1":0,"E2":1,"E3":2,"E4":3,
 		"S1":10,"S2":11,"S3":12,"S4":13,
-		"E1_E2":5,"E3_E4":6,		
+		"E1_E2":5,"E3_E4":6		
 	},
 	"translators":{
 	}
