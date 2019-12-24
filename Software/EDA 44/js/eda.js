@@ -93,7 +93,7 @@
     };
 	ext.getUltrasonicArduino = function(nextID,pin){
 		var deviceId = 36;
-		getPackage(nextID,deviceId,EDAinUltrasonic[pin],2+EDAinUltrasonic[pin]);
+		getPackage(nextID,deviceId,EDAout[pin]-10,EDAout[pin]);
 	}
 	ext.getTimer = function(nextID){
 		if(startTimer==0){
