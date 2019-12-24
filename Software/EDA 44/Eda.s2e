@@ -78,7 +78,12 @@
 		{"setup":"lcd.begin(16, 2);\n","inc":"#include <LiquidCrystal.h>\n /*\n ------------------------------------------------------------\n |			¡Atención!								|\n | 	Al utilizar el LCD Shield con la interface EDA 44	|\n | 	no podrás utilizar E1 y S1 para otros dispositivos.	|\n------------------------------------------------------------\n */\n ","def":"LiquidCrystal lcd(8, 9, 4, 5, 6, 7);\n","work":"lcd.clear();\n","loop":""}],
 
 		["w","LCD posición del cursor: fila %d.lcdRow  columna %d.lcdCol ","LCDsetcursor",0,0,
-		{"setup":"lcd.begin(16, 2);\n","inc":"#include <LiquidCrystal.h>\n /*\n ------------------------------------------------------------\n |			¡Atención!								|\n | 	Al utilizar el LCD Shield con la interface EDA 44	|\n | 	no podrás utilizar E1 y S1 para otros dispositivos.	|\n------------------------------------------------------------\n */\n ","def":"LiquidCrystal lcd(8, 9, 4, 5, 6, 7);\n","work":"lcd.setCursor({1},{0});\n","loop":""}]
+		{"setup":"lcd.begin(16, 2);\n","inc":"#include <LiquidCrystal.h>\n /*\n ------------------------------------------------------------\n |			¡Atención!								|\n | 	Al utilizar el LCD Shield con la interface EDA 44	|\n | 	no podrás utilizar E1 y S1 para otros dispositivos.	|\n------------------------------------------------------------\n */\n ","def":"LiquidCrystal lcd(8, 9, 4, 5, 6, 7);\n","work":"lcd.setCursor({1},{0});\n","loop":""}],
+	
+		["R", "Joystick entrada %d.JOYin eje %d.EJE","getAnalogJoystick","E2","X",
+		{"encode":"{d0}{d1}","setup":"","inc":"",
+		"def":"--separator--float getJoystick(int in,int eje){\nint inconv = '1';\nchar X[]={'0','1','2','3'};\nchar Y[]={'4','5','4','5'};\nif(eje==0){\ninconv = X[in];\n}\nif(eje==1){\ninconv = Y[in];\n}\npinMode(A0+inconv,INPUT);\nreturn analogRead(A0+inconv);\n}\n","work":"getJoystick({0},{1})","loop":""}]
+	
 	],
 	"menus": {
 		"servovalue":["0","45","90","135","180"],
@@ -89,7 +94,9 @@
 		"EDAout":["S1","S2","S3","S4"],
 		"EDAinUltrasonic":["S3","S4"],
 		"lcdRow":["0","1"],
-		"lcdCol":["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"]
+		"lcdCol":["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],
+		"EJE":["X","Y"],
+		"JOYin":["E2","E3"]
 	},
 	"values":{
 		"run":2,
@@ -100,8 +107,8 @@
 		"servo_pin":33,
 		"HIGH":1,"LOW":0,
 		"E1":0,"E2":1,"E3":2,"E4":3,
-		"S1":10,"S2":11,"S3":12,"S4":13
-		//"E1_E2":5,"E3_E4":6		
+		"S1":10,"S2":11,"S3":12,"S4":13,
+		"X":0,"Y":1
 	},
 	"translators":{
 	}

@@ -4,6 +4,8 @@
     var device = null;
     var _rxBuf = [];
 	var esdigital = 0;
+	var inconv = 0;
+	var ejeconv = 0;
 	
 
     // Sensor states:
@@ -43,10 +45,9 @@
 		E3:2,
 		E4:3
 	};
-
-	var EDAinUltrasonic ={
-		E1_E2:5,
-		E3_E4:6
+	var JOYeje = {
+		X:0,
+		Y:1
 	};
 	var axis = {
 		'X-Axis':1,
@@ -94,7 +95,23 @@
 	ext.getUltrasonicArduino = function(nextID,pin){
 		var deviceId = 36;
 		getPackage(nextID,deviceId,EDAout[pin]-10,EDAout[pin]);
-	}
+	};
+	ext.getAnalogJoystick = function(nextID,pin,eje) {
+		var X=[0,1,2,3];
+		var Y=[4,5,4,5];
+		ejeconv = JOYeje[eje];
+		inconv = EDAin[pin];
+		if (ejeconv==0){
+			inconv = X[inconv];
+		}
+		if (ejeconv==1){
+			inconv = Y[inconv];
+		}
+		var deviceId = 31;
+		esdigital=0;
+		getPackage(nextID,deviceId,inconv);
+	};
+	
 	ext.getTimer = function(nextID){
 		if(startTimer==0){
 			startTimer = new Date().getTime();
