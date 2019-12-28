@@ -2,7 +2,7 @@
 	"description": "Control de la placa EDA 44",
 	"author": "Don Faradio (donfaradio@gmail.com)",
 	"homepage": "https://github.com/DonFaradio/EDA/wiki",
-	"version": "1.4",
+	"version": "1.5",
 	"sort": 1,
 	"extensionPort": 0,
 	"firmware": "1.1",
@@ -82,10 +82,46 @@
 	
 		["R", "Joystick entrada %d.JOYin eje %d.EJE","getAnalogJoystick","E2","X",
 		{"encode":"{d0}{d1}","setup":"","inc":"",
-		"def":"--separator--float getJoystick(int in,int eje){\nint inconv = '1';\nchar X[]={'0','1','2','3'};\nchar Y[]={'4','5','4','5'};\nif(eje==0){\ninconv = X[in];\n}\nif(eje==1){\ninconv = Y[in];\n}\npinMode(A0+inconv,INPUT);\nreturn analogRead(A0+inconv);\n}\n","work":"getJoystick({0},{1})","loop":""}]
+		"def":"--separator--float getJoystick(int in,int eje){\nint inconv = '1';\nchar X[]={'0','1','2','3'};\nchar Y[]={'4','5','4','5'};\nif(eje==0){\ninconv = X[in];\n}\nif(eje==1){\ninconv = Y[in];\n}\npinMode(A0+inconv,INPUT);\nreturn analogRead(A0+inconv);\n}\n","work":"getJoystick({0},{1})","loop":""}],
+		
+		["B", "Pulsador de joystick en entrada %d.JOYin","getBotonJOY","E2",
+		{"encode":"{d0}","setup":"","inc":"","def":"--separator--float getbotonJoystick(int in){\nif(in==1){\npinMode(9,INPUT);\nreturn digitalRead(9);\n}\nif(in==2){\npinMode(4,INPUT);\nreturn digitalRead(4);\n}\n}","work":"getbotonJoystick({0})","loop":""}],
 	
+		["w", "Buzzer pasivo salida %d.EDAout reproducir tono: %d.notes  con duración %d.beats ms ","runTone", "S1", "Do4 (262 Hz)","500",
+		{"encode":"{d0}{s1}{s2}","setup":"pinMode({0},OUTPUT);\n","inc":"","def":"","work":"tone({0},{1},{2}); // write to buzzer\ndelay({2});\n","loop":""}],
+		
+		["w", "Escribir texto en el puerto serie %s", "serialWrite", "¡Hola mundo!",
+		{"setup":"Serial.begin(115200);\n","inc":"","def":"","work":"Serial.println({0});\n","loop":""}],
+				
+		["R", "Cantidad de caracters disponibles en el puerto serie", "serialAvailable",
+		{"setup":"Serial.begin(115200);\n","inc":"","def":"","work":"Serial.available()","loop":""}],
+				
+		["R", "Leer texto del puerto serie", "serialRead",
+		{"setup":"Serial.begin(115200);\n","inc":"","def":"","work":"Serial.read()","loop":""}],
+		
+		["w", "Inicializar NeoPixels en salida %d.EDAout cantidad %n LEDS","initNeoPixel", "S1", "4",
+			{"encode":"{d0}{d1}",
+					"inc":"#include \"NeoPixel.h\"\n\n",
+					"def":"Adafruit_NeoPixel strip = Adafruit_NeoPixel({1}, {0}, NEO_RGB + NEO_KHZ800);\n\n",
+					"setup":"strip.begin(); \n",
+					"work":"",
+					"loop":""
+			}
+		],	
+		["w", "Encender LED n° %n Rojo: %d.rvalue Verde: %d.gvalue Azul: %d.bvalue","runNeoPixel", "0", 0, 0, 0,
+			{"encode":"{d0}{d1}{d2}{d3}",
+					"inc":"",
+					"def":"",
+					"setup":"",
+					"work":"strip.setPixelColor({0}, {1}, {2}, {3});\nstrip.show();\n",
+					"loop":""
+			}
+		]
+		
 	],
+
 	"menus": {
+		"beats":["500","250","125","1000","2000","0"],
 		"servovalue":["0","45","90","135","180"],
 		"servocont":["-100","-50","0","50","100"],
 		"pwmvalue":["0","50","100","150","255"],
@@ -96,7 +132,11 @@
 		"lcdRow":["0","1"],
 		"lcdCol":["0","1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],
 		"EJE":["X","Y"],
-		"JOYin":["E2","E3"]
+		"JOYin":["E2","E3"],
+		"notes":["Do2 (65 Hz)","Re2 (73 Hz)","Mi2 (82 Hz)","Fa2 (87 Hz)","Sol2 (98 Hz)","La2 (110 Hz)","Si2 (123 Hz)","Do3 (131 Hz)","Re3 (147 Hz)","Mi3 (165 Hz)","Fa3 (175 Hz)","Sol3 (196 Hz)","La3 (220 Hz)","Si3 (247 Hz)","Do4 (262 Hz)","Re4 (294 Hz)","Mi4 (330 Hz)","Fa4 (349Hz)","Sol4 (392 Hz)","La4 (440 Hz)","Si4 (494 Hz)","Do5 (523 Hz)","Re5 (587 Hz)","Mi5 (659 Hz)","Fa5 (698 Hz)","Sol5 (784 Hz)","La5 (880 Hz)","Si5 (988 Hz)","Do6 (1047 Hz)","Re6 (1175 Hz)","Mi6 (1319 Hz)","Fa6 (1397 Hz)","Sol6 (1568 Hz)","La6 (1760 Hz)","Si6 (1976 Hz)","Do7 (2093 Hz)","Re7 (2349 Hz)","Mi7 (2637 Hz)","Fa7 (2794 Hz)","Sol7 (3136 Hz)","La7 (3520 Hz)","Si7 (3951 Hz)","Do8 (4186 Hz)","Re8 (4699 Hz)"],
+		"rvalue":["0","50","100","150","255"],
+		"gvalue":["0","50","100","150","255"],
+		"bvalue":["0","50","100","150","255"]
 	},
 	"values":{
 		"run":2,
@@ -108,7 +148,15 @@
 		"HIGH":1,"LOW":0,
 		"E1":0,"E2":1,"E3":2,"E4":3,
 		"S1":10,"S2":11,"S3":12,"S4":13,
-		"X":0,"Y":1
+		"X":0,"Y":1,
+		"Si0 (31 Hz)":31,"Do1 (33 Hz)":33,"Re1 (37 Hz)":37,"Mi1 (41 Hz)":41,"Fa1 (44 Hz)":44,"Sol1 (49 Hz)":49,"La1 (55 Hz)":55,"Si1 (62 Hz)":62,
+		"Do2 (65 Hz)":65,"Re2 (73 Hz)":73,"Mi2 (82 Hz)":82,"Fa2 (87 Hz)":87,"Sol2 (98 Hz)":98,"La2 (110 Hz)":110,"Si2 (123 Hz)":123,
+		"Do3 (131 Hz)":131,"Re3 (147 Hz)":147,"Mi3 (165 Hz)":165,"Fa3 (175 Hz)":175,"Sol3 (196 Hz)":196,"La3 (220 Hz)":220,"Si3 (247 Hz)":247,
+		"Do4 (262 Hz)":262,"Re4 (294 Hz)":294,"Mi4 (330 Hz)":330,"Fa4 (349 Hz)":349,"Sol4 (392 Hz)":392,"La4 (440 Hz)":440,"Si4 (494 Hz)":494,
+		"Do5 (523 Hz)":523,"Re5 (587 Hz)":587,"Mi5 (659 Hz)":659,"Fa5 (698 Hz)":698,"Sol5 (784 Hz)":784,"La5 (880 Hz)":880,"Si5 (988 Hz)":988,
+		"Do6 (1047 Hz)":1047,"Re6 (1175 Hz)":1175,"Mi6 (1319 Hz)":1319,"Fa6 (1397 Hz)":1397,"Sol6 (1568 Hz)":1568,"La6 (1760 Hz)":1760,"Si6 (1976 Hz)":1976,
+		"Do7 (2093 Hz)":2093,"Re7 (2349 Hz)":2349,"Mi7 (2637 Hz)":2637,"Fa7 (2794 Hz)":2794,"Sol7 (3136 Hz)":3136,"La7 (3520 Hz)":3520,"Si7 (3951 Hz)":3951,
+		"Do8 (4186 Hz)":4186,"Re8 (4699 Hz)":4699
 	},
 	"translators":{
 	}

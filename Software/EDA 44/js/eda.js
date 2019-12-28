@@ -54,6 +54,16 @@
 		'Y-Axis':2,
 		'Z-Axis':3
 	};
+	var tones ={"Si0 (31 Hz)":31,"Do1 (33 Hz)":33,"Re1 (37 Hz)":37,"Mi1 (41 Hz)":41,"Fa1 (44 Hz)":44,"Sol1 (49 Hz)":49,"La1 (55 Hz)":55,"Si1 (62 Hz)":62,
+			"Do2 (65 Hz)":65,"Re2 (73 Hz)":73,"Mi2 (82 Hz)":82,"Fa2 (87 Hz)":87,"Sol2 (98 Hz)":98,"La2 (110 Hz)":110,"Si2 (123 Hz)":123,
+			"Do3 (131 Hz)":131,"Re3 (147 Hz)":147,"Mi3 (165 Hz)":165,"Fa3 (175 Hz)":175,"Sol3 (196 Hz)":196,"La3 (220 Hz)":220,"Si3 (247 Hz)":247,
+			"Do4 (262 Hz)":262,"Re4 (294 Hz)":294,"Mi4 (330 Hz)":330,"Fa4 (349 Hz)":349,"Sol4 (392 Hz)":392,"La4 (440 Hz)":440,"Si4 (494 Hz)":494,
+			"Do5 (523 Hz)":523,"Re5 (587 Hz)":587,"Mi5 (659 Hz)":659,"Fa5 (698 Hz)":698,"Sol5 (784 Hz)":784,"La5 (880 Hz)":880,"Si5 (988 Hz)":988,
+			"Do6 (1047 Hz)":1047,"Re6 (1175 Hz)":1175,"Mi6 (1319 Hz)":1319,"Fa6 (1397 Hz)":1397,"Sol6 (1568 Hz)":1568,"La6 (1760 Hz)":1760,"Si6 (1976 Hz)":1976,
+			"Do7 (2093 Hz)":2093,"Re7 (2349 Hz)":2349,"Mi7 (2637 Hz)":2637,"Fa7 (2794 Hz)":2794,"Sol7 (3136 Hz)":3136,"La7 (3520 Hz)":3520,"Si7 (3951 Hz)":3951,
+		"Do8 (4186 Hz)":4186,"Re8 (4699 Hz)":4699
+	};
+
 	var values = {};
 	var indexs = [];
 	
@@ -111,14 +121,25 @@
 		esdigital=0;
 		getPackage(nextID,deviceId,inconv);
 	};
+	ext.getBotonJOY = function(nextID,pin) {
+		var deviceId = 30;
+		if(EDAin[pin]==1){
+			getPackage(nextID,deviceId,9);
+		}
+		if(EDAin[pin]==2){
+			getPackage(nextID,deviceId,4);
+		}
+	};
 	
 	ext.getTimer = function(nextID){
 		if(startTimer==0){
 			startTimer = new Date().getTime();
 		}
 		responseValue(nextID,new Date().getTime()-startTimer);
-	}
-
+	};
+	ext.runTone = function(pin,tone,beat){
+		runPackage(34,EDAout[pin],short2array(typeof tone=="number"?tone:tones[tone]),short2array(typeof beat=="number"?beat:beat));
+	};
 	function sendPackage(argList, type){
 		var bytes = [0xff, 0x55, 0, 0, type];
 		for(var i=0;i<argList.length;++i){
