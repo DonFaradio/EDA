@@ -12,6 +12,6 @@ movil.pdf - Instructivo armado móvil en PDF (A3)
 
 unificado.pdf - Manuales de instrucciones de repuesto para kit EDA (A4)
 
-Licencia de los archivos detallados - GNU GPL V2 o posterior
+Licencia de los archivos detallados - GNU GPL V3
 
 https://github.com/DonFaradio/EDA/blob/master/LICENSE
